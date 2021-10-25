@@ -10,6 +10,6 @@ class RouterFactory extends ComponentFactoryAbstract
 {
     protected function getConcrete()
     {
-        return new \Learning\MVC\Routing\Router();
+        return new Router();
     }
 }

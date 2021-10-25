@@ -5,7 +5,7 @@ namespace app\Components\Router;
 
 
 use framework\Components\ComponentFactoryAbstract;
-use framework\Components\Router\Router;
+use Learning\MVC\Routing\Router;
 
 class RouterFactory extends ComponentFactoryAbstract
 {
