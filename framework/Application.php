@@ -5,6 +5,7 @@ namespace framework;
 
 
 use framework\Components\ComponentFactoryAbstract;
+use framework\Components\Router\Exceptions\RouteException;
 use framework\Interfaces\ContainerInterface;
 use framework\Interfaces\RunnableInterface;
 
@@ -50,11 +51,27 @@ class Application implements RunnableInterface, ContainerInterface
     {
         try {
             $action = $this->get('router')->route();
-            $action();
-        } catch (\Throwable $exception) {
+            echo $this->callAction($action);
+        } catch (RouteException $exception) {
             http_response_code();
             echo 'Not found';
         }
+    }
+
+    public function callAction(callable $action)
+    {
+        $reflectionClass = new \ReflectionClass($action[0]);
+        $reflectionMethod = $reflectionClass->getMethod($action[1]);
+        $arguments = [];
+        foreach ($reflectionMethod->getParameters() as $parameter) {
+            $name = $parameter->getName();
+            if (isset($_GET[$name])) {
+                $type = (string) $parameter->getType();
+                settype($_GET[$name], $type);
+                $arguments[$name] = $_GET[$name];
+            }
+        }
+        return $reflectionMethod->invokeArgs($action[0], $arguments);
     }
 
     public function get($key)

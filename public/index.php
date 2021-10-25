@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 ini_set('display_errors', '1');
 
 include $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
