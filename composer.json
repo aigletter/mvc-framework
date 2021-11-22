@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "miroslav-lee/php-learning": "dev-routing",
-        "ext-yaml": "*"
+        "ext-yaml": "*",
+        "phpdocumentor/phpdocumentor": "2.*"
     },
     "autoload": {
         "psr-4": {

@@ -10,15 +10,28 @@ use framework\Components\Router\RouterFactory;
 return [
     'app_name' => 'Test framework',
     'components' => [
-        'router' => [
-            'factory' => RouterFactory::class
+        \framework\Interfaces\RouteInterface::class => [
+            'factory' => \app\Components\ConfiguredRouter\RouterFactory::class,
+            //'factory' => RouterFactory::class
             //'factory' => \app\Components\Router\RouterFactory::class,
+            'aliases' => [
+                'router'
+            ]
         ],
-        'cache' => [
+        \framework\Interfaces\CacheInterface::class => [
             'factory' => MemoryCacheFactory::class,
+            'aliases' => [
+                'cache'
+            ]
         ],
-        'math' => [
-            'factory' => MathFactory::class,
+        \app\Components\Math\Math::class => [
+            //'factory' => MathFactory::class,
+            'class' => \app\Components\Math\Math::class,
+            'aliases' => ['math'],
+            'params' => [
+                'test' => 'hello',
+                'count' => 100,
+            ]
         ]
     ],
 ];
